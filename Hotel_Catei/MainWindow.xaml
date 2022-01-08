@@ -1,0 +1,297 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotel_Catei"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"    
+        xmlns:AutoLotModel="clr-namespace:AutoLotModel;assembly=AutoLotModel" 
+        x:Class="Hotel_Catei.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="stapaniViewSource" d:DesignSource="{d:DesignInstance {x:Type AutoLotModel:Stapani}, CreateList=True}"/>
+        <CollectionViewSource x:Key="cainiViewSource" d:DesignSource="{d:DesignInstance {x:Type AutoLotModel:Caini}, CreateList=True}"/>
+        <CollectionViewSource x:Key="angajatiViewSource" d:DesignSource="{d:DesignInstance {x:Type AutoLotModel:Angajati}, CreateList=True}"/>
+        <CollectionViewSource x:Key="stapaniRezervarisViewSource" Source="{Binding Rezervaris, Source={StaticResource stapaniViewSource}}"/>
+        <CollectionViewSource x:Key="angajatiSarcinisViewSource" Source="{Binding Sarcinis, Source={StaticResource angajatiViewSource}}"/>
+    </Window.Resources>
+    <Grid Background="#82f5cd">
+
+        <TabControl x:Name="tbCtrlHotelCatei" HorizontalAlignment="Left" Height="341" VerticalAlignment="Top" Width="610" Margin="142,34,0,0" BorderThickness="0">
+
+            <TabItem x:Name="TabItemStapani" Header="Stapani">
+                <Grid Background="#fab078" DataContext="{StaticResource stapaniViewSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="61*"/>
+                        <ColumnDefinition Width="159*"/>
+                        <ColumnDefinition Width="378*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Background="#fab078" x:Name="stapaniDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,10,178,169" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.Column="1" Grid.ColumnSpan="3" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="id_stapanColumn" Binding="{Binding id_stapan}" Header="id stapan" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="mail_stapanColumn" Binding="{Binding mail_stapan}" Header="mail stapan" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nrtel_stapanColumn" Binding="{Binding nrtel_stapan}" Header="nrtel stapan" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nume_stapanColumn" Binding="{Binding Nume_stapan}" Header="Nume stapan" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="prenume_stapanColumn" Binding="{Binding Prenume_stapan}" Header="Prenume stapan" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid1" DataContext="{StaticResource stapaniViewSource}" HorizontalAlignment="Left" Margin="26,141,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <!--<Label Content="id stapan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="id_stapanTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding id_stapan, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsEnabled="False"/>-->
+                        <Label Content="mail stapan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="mail_stapanTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding mail_stapan, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="nrtel stapan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="nrtel_stapanTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding nrtel_stapan, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Nume stapan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox x:Name="nume_stapanTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Nume_stapan, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Prenume stapan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                        <TextBox x:Name="prenume_stapanTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="4" Text="{Binding Prenume_stapan, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabItemCaini" Header="Caini">
+                <Grid Background="#84aaf5" DataContext="{StaticResource cainiViewSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="173*"/>
+                        <ColumnDefinition Width="421*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="cainiDataGrid" Background="#84aaf5" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="149,43,79,53" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.Column="2" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="id_caineColumn" Binding="{Binding Id_caine}" Header="Id caine" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nume_caineColumn" Binding="{Binding nume_caine}" Header="nume caine" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="rasa_caineColumn" Binding="{Binding rasa_caine}" Header="rasa caine" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid2" DataContext="{StaticResource cainiViewSource}" HorizontalAlignment="Left" Margin="65,128,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <!--  <Label Content="Id caine:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="id_caineTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Id_caine, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsEnabled="False"/>-->
+                        <Label Content="nume caine:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="nume_caineTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding nume_caine, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="rasa caine:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="rasa_caineTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding rasa_caine, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabItemRezervari" Header="Rezervari">
+                <Grid Background="#ffa6fe" DataContext="{StaticResource stapaniRezervarisViewSource}">
+                    <ComboBox x:Name="cmbStapani" HorizontalAlignment="Left" Margin="119,21,0,0" VerticalAlignment="Top" Width="120">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Nume_stapan"/>
+                                            <Binding Path="Prenume_stapan"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+
+                    <ComboBox x:Name="cmbCaini" HorizontalAlignment="Left" Margin="425,21,0,0" VerticalAlignment="Top" Width="120">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="nume_caine"/>
+                                            <Binding Path="rasa_caine"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+
+
+                    <Label Content="Selectare Stapan:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,17,0,0" Width="101"/>
+                    <Label Content="Selectare Caine:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="331,17,0,0" Width="94"/>
+                    <DataGrid Background="#ffa6fe" x:Name="rezervarisDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="18,86,232,24.4" RowDetailsVisibilityMode="VisibleWhenSelected" IsSynchronizedWithCurrentItem="True" BorderThickness="0">
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn x:Name="data_finalColumn" Header="data final" Width="SizeToHeader">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding data_final, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn  x:Name="data_startColumn" Header="data start" Width="SizeToHeader">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding data_start, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!--<DataGridTextColumn x:Name="id_caineColumn1" Binding="{Binding id_caine}" Header="id caine" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="id_rezervareColumn" Binding="{Binding Id_rezervare}" Header="Id rezervare" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="id_stapanColumn1" Binding="{Binding id_stapan}" Header="id stapan" Width="SizeToHeader"/>-->
+
+                            <DataGridTextColumn x:Name="Nume_stapanColumn" Binding="{Binding Nume_stapan}" Header="Nume stapan" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Preume_stapanColumn" Binding="{Binding Prenume_stapan}" Header="Prenume stapan" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nume_caine_rezColumn" Binding="{Binding nume_caine}" Header="Nume Caine" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="rasa_caine_rezColumn" Binding="{Binding rasa_caine}" Header="Rasa Caine" Width="SizeToHeader"/>
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid4" HorizontalAlignment="Left" Margin="377,98,0,0" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="data final:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="data_finalDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" SelectedDate="{Binding data_final, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                        <Label Content="data start:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="data_startDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="1" SelectedDate="{Binding data_start, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+                        <!--<Label Content="id caine:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="id_caineTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding id_caine, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsEnabled="False"/>
+                        <Label Content="Id rezervare:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox x:Name="id_rezervareTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Id_rezervare, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsEnabled="False"/>
+                        <Label Content="id stapan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                        <TextBox x:Name="id_stapanTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="4" Text="{Binding id_stapan, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsEnabled="False"/>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabItemAngajati" Header="Angajati" Height="23" Margin="-1,0,-3,0" VerticalAlignment="Top">
+                <Grid Background="#9440f5" DataContext="{StaticResource angajatiViewSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="64*"/>
+                        <ColumnDefinition Width="171*"/>
+                        <ColumnDefinition Width="371*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Background="#9440f5" x:Name="angajatiDataGrid" AutoGenerateColumns="False" Grid.Column="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="83,24,73,94" RowDetailsVisibilityMode="VisibleWhenSelected" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nume_angajatColumn" Binding="{Binding nume_angajat}" Header="nume angajat" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="prenume_angajatColumn" Binding="{Binding prenume_angajat}" Header="prenume angajat" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="grid3" HorizontalAlignment="Left" Margin="40,135,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <!-- <Label Content="Id:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="idTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>-->
+                        <Label Content="Nume angajat:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="nume_angajatTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding nume_angajat, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                        <Label Content="Prenume angajat:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="prenume_angajatTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding prenume_angajat, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    </Grid>
+                    <Button x:Name="btnPrevious" Content="Previous"  Click="btnPrevious_Click" Margin="113,223,199,25" Grid.Column="2">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Ellipse Stroke="Black" StrokeThickness="0">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop Offset="0" Color="#ff00fb" />
+                                                <GradientStop Offset="1" Color="#ff00fb" />
+                                                <GradientStop Offset="1" Color="#ff00fb" />
+                                                <RadialGradientBrush.Transform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="0.65" />
+                                                    </TransformGroup>
+                                                </RadialGradientBrush.Transform>
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <ContentPresenter HorizontalAlignment="Center"  
+                                VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                    <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="234,238,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="btnNext_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabItemSarcini" Header="Sarcini">
+                <Grid Background="#4bbf6a" DataContext="{StaticResource angajatiSarcinisViewSource}">
+                    <DataGrid Background="#4bbf6a" x:Name="sarcinisDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="30,95,252,92" RowDetailsVisibilityMode="VisibleWhenSelected" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="id_rezervareColumn1" Binding="{Binding Id_rezervare}" Header="Id rezervare" Width="SizeToHeader"/>
+                            <!-- <DataGridTextColumn x:Name="id_angajatColumn" Binding="{Binding Id_angajat}" Header="Id angajat" Width="SizeToHeader"/> -->
+                            <DataGridTextColumn x:Name="id_sarcinaColumn" Binding="{Binding Id_sarcina}" Header="Id sarcina" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nume_angajat_sarciniColumn" Binding="{Binding nume_angajat}" Header="nume angajat" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="prenume_angajat_sarciniColumn" Binding="{Binding prenume_angajat}" Header="prenume angajat" Width="SizeToHeader"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <ComboBox x:Name="cmbAngajati" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="415,29,0,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="nume_angajat"/>
+                                            <Binding Path="prenume_angajat"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label Content="Selecteaza Angajat:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="295,25,0,0" Width="115"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <GroupBox x:Name="gbOperations" Margin="41,63,664,274.6" ButtonBase.Click="gbOperations_Click" BorderThickness="0" >
+            <StackPanel x:Name="stOperations" Margin="0,10,-12,-7">
+                <Button Background="#f5dc38" x:Name="btnAdd" Content="Add" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="btnAdd_Click" />
+                <Button Background="#f5dc38" x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="btnEdit_Click" />
+                <Button Background="#f5dc38" x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="btnDelete_Click" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="gbActions" Margin="41,217,664,153" SnapsToDevicePixels="True" BorderThickness="0">
+            <StackPanel x:Name="stActions" Margin="0,0,-12,-7" >
+                <Button Background="#5bf538" x:Name="btnSave" Content="Save" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="btnSave_Click">
+
+                </Button>
+                <Button Background="#f56138" x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="btnCancel_Click" />
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>
